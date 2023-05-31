@@ -1,0 +1,44 @@
+CREATE DATABASE SAE23;
+USE SAE23;
+
+
+CREATE TABLE categories (
+  id INT PRIMARY KEY,
+  nom VARCHAR(255),
+  descriptif VARCHAR(255)
+);
+
+CREATE TABLE produits (
+  id INT PRIMARY KEY,
+  nom VARCHAR(255),
+  date_peremption DATE,
+  photo VARCHAR(255),
+  marques VARCHAR(255),
+  auteur VARCHAR(255),
+  categorie_id INT,
+  FOREIGN KEY (categorie_id) REFERENCES categories(id)
+);
+
+CREATE TABLE clients (
+  numero_client INT PRIMARY KEY,
+  nom VARCHAR(255),
+  prenom VARCHAR(255),
+  date_inscription DATE,
+  adresse VARCHAR(255)
+);
+
+CREATE TABLE commandes (
+  numero_commande INT PRIMARY KEY,
+  client_id INT,
+  date_commande DATE,
+  FOREIGN KEY (client_id) REFERENCES clients(numero_client)
+);
+
+CREATE TABLE produits_commande (
+  commande_id INT,
+  produit_id INT,
+  quantite INT,
+  PRIMARY KEY (commande_id, produit_id),
+  FOREIGN KEY (commande_id) REFERENCES commandes(numero_commande),
+  FOREIGN KEY (produit_id) REFERENCES produits(id)
+);
