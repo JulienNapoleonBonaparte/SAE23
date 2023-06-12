@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Order Invoice</title>
+    <style>
+        /* Styles CSS pour le bon de commande */
+        /* ... Ajoutez vos styles personnalisés ici ... */
+    </style>
+</head>
+<body>
+    <h1>Order Invoice</h1>
+    <p>Order Number: {{ order_number }}</p>
+    <!-- Ajoutez d'autres informations de commande ici -->
+
+    <!-- Exemple d'affichage des produits de la commande -->
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>{{ item.quantity * item.product.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Ajoutez d'autres détails de commande nécessaires ici -->
+
+    <p>Total Amount: {{ total_amount }}</p>
+    <!-- Ajoutez d'autres informations de paiement, d'expédition, etc. ici -->
+
+    <p>Thank you for your order!</p>
+</body>
+</html>
