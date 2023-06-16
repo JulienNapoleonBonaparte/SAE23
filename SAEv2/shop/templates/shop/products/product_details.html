@@ -23,7 +23,9 @@ ShopKart | Online Shopping
         {% if products.trending %}
           <div class="hot">Hot</div>
           {% endif %}
+          {% if products.product_image %}
           <img src="{{products.product_image.url}}"  class="card-image-top" alt="{{products}}">
+          {% endif %}
       </div>
       <div class="col-8 my-3">
           <h5 class="text-success">{{products | upper}}</h5>

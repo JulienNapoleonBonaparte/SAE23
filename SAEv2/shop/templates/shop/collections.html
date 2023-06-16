@@ -26,7 +26,9 @@
         {% for item in catagory %}
         <div class="col-md-4 col-lg-3">
           <div class="card my-3">
+            {% if item.image %}
             <img src="{{item.image.url}}"  class="card-image-top" alt="Categories">
+            {% endif %}
             <a href="{% url 'collections' item.name %}">
             <div class="card-body">
               <h5 class="card-title text-primary">{{ item.name }}</h5>
