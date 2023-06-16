@@ -1,6 +1,6 @@
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
-from shop.form import CustomUserForm
+from .form import CustomUserForm
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -14,6 +14,7 @@ from django.views.generic import View
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
+from . import models
 
 
 def home(request):
@@ -140,13 +141,16 @@ def collectionsview(request, name):
         return redirect('collections')
 
 
-def product_details(request, cname, pname):
+def product_details(request, id):
+    produit = models.Product.objects.get(pk=id)
+    cname=produit.category.name
+    pname=produit.name
     if (Catagory.objects.filter(name=cname, status=0)):
         if (Product.objects.filter(name=pname, status=0)):
             products = Product.objects.filter(name=pname, status=0).first()
             return render(request, "shop/products/product_details.html", {"products": products})
         else:
-            messages.error(request, "No Such Produtct Found")
+            messages.error(request, "No Such Product Found")
             return redirect('collections')
     else:
         messages.error(request, "No Such Catagory Found")

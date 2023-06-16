@@ -5,7 +5,7 @@ import datetime
 import os
 
 
-def getFileName(requset, filename):
+def getFileName(request, filename):
     now_time = datetime.datetime.now().strftime("%Y%m%d%H:%M:%S")
     new_filename = "%s%s" % (now_time, filename)
     return os.path.join('uploads/', new_filename)
@@ -21,6 +21,9 @@ class Catagory(models.Model):
     def __str__(self):
         return self.name
 
+    class meta():
+        manage=True
+        db_table="Catagory"
 
 class Product(models.Model):
     category = models.ForeignKey(Catagory, on_delete=models.CASCADE)
@@ -38,6 +41,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    class meta():
+        manage=True
+        db_table="Product"
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
