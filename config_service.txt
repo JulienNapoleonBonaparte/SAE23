@@ -1,0 +1,51 @@
+#Congif Gunicorn:
+
+Dans le fichier /home/sarisma/conf/gunicorn_config.py:
+
+command = '/home/sarisma/django_env/bin/gunicorn'
+pythonpath = '/home/sarisma/sae23'
+bind = '10.0.2.15:8000'
+workers = 3
+
+
+Dans settings du projet : 
+
+ALLOWED_HOST = ['10.0.2.15']
+
+DATABASES = {
+    'default' = {
+        'ENGINE' : 'django.db.backends.mysql',
+        'NAME' : 'sae',
+        'HOST' : 'localhost',
+        'PORT' : '3306',
+        'USER' : 'root'
+        'PASSWORD' : 'toto'
+    }
+}
+
+#Pour les configuration de nginx : 
+
+Dans le fichier /etc/nginx/sites_available/sae23 : 
+
+server {
+        listen 80;
+        server_name 10.0.2.15;
+        
+local /static/ {
+      root /home/sarisma/static/;
+}
+
+
+location / {
+        proxy_pass http://10.0.2.15:8000;
+        }
+}
+
+
+
+
+
+
+
+
+
